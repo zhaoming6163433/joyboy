@@ -9,13 +9,14 @@
 <script>
 import router from './router'
 import util from './util/util.js'
+import { setTimeout } from 'timers';
 
 export default {
     name: 'app',
     data() {
         return {
             titlename: {
-                
+                "package":"背包"
             }
         }
     },
@@ -25,14 +26,36 @@ export default {
         //拦截路由
         router.beforeEach((to, from, next) => {
             next();
-            this.firstitle();
+            this.firstitle(to);
         });
         //首次进入页面设置标题
         this.firstitle();
     },
     methods: {
+        hometab(to) {
+            if (this.titlename[to.name]) {
+                document.title = this.titlename[to.name];
+            }
+            switch (to.name) {
+                case 'friend':
+                util.vueEvent.$emit("hometabbar", 'friend');
+                break;
+                case 'task':
+                util.vueEvent.$emit("hometabbar", 'task');
+                break;
+                case 'package':
+                util.vueEvent.$emit("hometabbar", 'package');
+                break;
+                case 'share':
+                util.vueEvent.$emit("hometabbar", 'share');
+                break;
+                default:
+                util.vueEvent.$emit("hometabbar", '');
+                break;
+            }
+        },
         //第一次进入页面也判断标题
-        firstitle() {
+        firstitle(to) {
             let url = window.location.href;
             let name = '';
             if (url.indexOf('?') != -1) {
@@ -45,7 +68,14 @@ export default {
             if (name) {
                 document.title = this.titlename[name]
             }else{
-                document.title = "项目名称";
+                document.title = "虚拟萌宠";
+            }
+            if(to){
+                this.hometab(to);
+            }else{
+                setTimeout(()=>{
+                    this.hometab({name:name});
+                },300)
             }
         }
     },

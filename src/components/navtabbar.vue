@@ -1,21 +1,21 @@
 <template>
   <div class="navtabbar">
       <mt-tabbar v-model="selected" fixed>
-        <mt-tab-item id="homechild">
+        <mt-tab-item id="friend">
           <div class="barimg home img1"></div>
-          首页
+          好友
         </mt-tab-item>
-        <mt-tab-item id="seekclasschild">
+        <mt-tab-item id="task">
           <div class="barimg seekclass img2"></div>
-          分类
+          任务
         </mt-tab-item>
-        <mt-tab-item id="shopcar">
+        <mt-tab-item id="package">
           <div class="barimg shoppingcart img3"></div>
-          购物车
+          背包
         </mt-tab-item>
-        <mt-tab-item id="myInfo">
+        <mt-tab-item id="share">
           <div class="barimg my img4"></div>
-          我的
+          分享
         </mt-tab-item>
       </mt-tabbar>
   </div>
@@ -29,24 +29,24 @@ export default {
   props : [],
   data () {
     return {
-      selected: 'homechild'
+      selected: ''
     }
   },
   watch: {
       selected: function (val, oldVal) {
           // 这里就可以通过 val 的值变更来确定
           switch (val) {
-            case 'seekclasschild':
-              this.$router.push({'name':'seekclasschild'})
+            case 'friend':
+             
               break;
-            case 'homechild':
-              this.$router.push({'name':'homechild'});
+            case 'task':
+              
               break;
-            case 'shopcar':
-              this.$router.push({'name':'shopcar'});
+            case 'package':
+              this.$router.push({"name":"package"})
               break;
-            case 'myInfo':
-              this.$router.push({'name':'myInfo'});
+            case 'share':
+              
               break;
           }
       }
@@ -67,26 +67,6 @@ export default {
 </script>
 
 <style lang="scss">
-  .mint-tabbar > .mint-tab-item.is-selected{
-    background-color: $nav_tabbar;
-    color: $black_c!important;
-    .img1{
-      background:url('../assets/images/home_sel.png') no-repeat;
-      background-size: 100%;
-    }
-    .img2{
-      background:url('../assets/images/fenlei_sel.png') no-repeat;
-      background-size: 100%;
-    }
-    .img3{
-      background:url('../assets/images/gowuche_sel.png') no-repeat;
-      background-size: 100%;
-    }
-    .img4{
-      background:url('../assets/images/my_sel.png') no-repeat;
-      background-size: 100%;
-    }
-  }
   .mint-tabbar.is-fixed{
     border-top:$bord_c;
   }

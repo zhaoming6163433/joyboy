@@ -6,6 +6,7 @@ import $ from 'n-zepto'
 import axios from 'axios'
 import VUEUTIL from './util/vueutil.js'
 import Mint from 'mint-ui';
+import screenscale from './assets/js/screenscale.js'
 import 'mint-ui/lib/style.css'
 import App from './App.vue'
 
