@@ -6,6 +6,7 @@
         <navtabbar></navtabbar>
         <packsheet></packsheet>
         <startpage></startpage>
+        <dogtext></dogtext>
   </div>
 </template>
 
@@ -14,12 +15,14 @@
 import navtabbar from 'components/navtabbar'
 import packsheet from 'components/packsheet'
 import startpage from 'components/startpage'
+import dogtext from 'components/dogtext'
 export default {
     name: 'home',
     components: {
         navtabbar,
         packsheet,
-        startpage
+        startpage,
+        dogtext
     },
     methods: {
         
@@ -44,6 +47,6 @@ export default {
         z-index: 1;
         margin: 0;
         padding: 0;
-        background-color: #f5f6fa;
+        background-color: $buleback;
     }
 </style>

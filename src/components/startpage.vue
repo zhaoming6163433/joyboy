@@ -1,7 +1,7 @@
 <template>
     <div class="startpage" v-show="showstartpage">
         <div class="textstyle">收到一份神秘包裹，是什么呢？快打开看看吧！</div>
-        <div :class="`imgstyle animated ${tada}`" @click="clbox" :style="{ width: boxwidth + 'rem' }"><img :src="box_img"/></div>
+        <div :class="`imgstyle animated ${tada}`" @click="clbox" :style="{ width: boxwidth + 'rem',top:boxtop + 'rem' }"><img :src="box_img"/></div>
     </div>
 </template>
 
@@ -19,7 +19,8 @@ export default {
             box_img: box_still,
             tada:"",
             boxwidth:14,
-            showstartpage:true
+            boxtop:0,
+            showstartpage:false
         }
     },
     components: {
@@ -35,11 +36,16 @@ export default {
         clbox(){
             this.tada = "tada";
             setTimeout(()=>{
-                this.box_img = box_open;
-                this.boxwidth = 18;
+                this.boxwidth = 19;
+                this.boxtop = -3;
+                this.$nextTick(()=>{
+                    this.box_img = box_open;
+                });
+                
             },1000);
             setTimeout(()=>{
                 this.showstartpage = false;
+                util.vueEvent.$emit("showdogtext", true);
             },2000);
         }
     },
@@ -59,7 +65,7 @@ export default {
     right: 0;
     bottom: 0;
     z-index: 1;
-    background-color: #fff;
+    background-color: $buleback;
     text-align:center;
     .textstyle{
         width: 14rem;
@@ -73,7 +79,8 @@ export default {
         font-size:1rem;
     }
     .imgstyle{
-        width:14rem;
+        position: relative;
+        width:13rem;
         margin: 0 auto;
         margin-top:5rem;
     }

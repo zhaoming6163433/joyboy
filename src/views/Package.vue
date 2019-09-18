@@ -1,10 +1,10 @@
 <template>
     <div class="package">
+        <backhome></backhome>
         <div class="list">
-            <div class="zhuangban" @click="showsheet"><img :src="cookie"/></div>
             <div class="zhuangban" @click="showsheet"><img :src="clothes"/></div>
+            <div class="zhuangban" @click="showsheet"><img :src="cookie"/></div>
         </div>
-        
     </div>
 </template>
 
@@ -12,6 +12,7 @@
 
 import cookie from '@assets/images/cookie.png'
 import clothes from '@assets/images/clothes.png'
+import backhome from 'components/backhome'
 import util from '@/util/util.js'
 export default {
     name: 'package',
@@ -23,7 +24,7 @@ export default {
         }
     },
     components: {
-
+        backhome
     },
     created() {
 
