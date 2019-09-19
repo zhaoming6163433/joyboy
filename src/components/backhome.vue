@@ -44,7 +44,7 @@ export default {
     width: 1rem;
     background-color: #000;
     border-radius: 100%;
-    position: absolute;
+    position: fixed;
     top:0.2rem;
     left:0.2rem;
     opacity: 0.2;

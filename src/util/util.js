@@ -517,6 +517,32 @@ const utils = {
     },
     formatJson(filterVal, jsonData) {
         return jsonData.map(v => filterVal.map(j => v[j]))
+    },
+    //摇一摇重力感应
+    sharkgravity:function(callback){
+        if (window.DeviceMotionEvent) { 
+             window.addEventListener('devicemotion',deviceMotionHandler, false);  
+        } 
+        var speed = 30;//speed
+        let x = 0; 
+        let y = 0;
+        let z = 0;
+        let lastX = 0;
+        let lastY = 0;
+        let lastZ = 0;
+        function deviceMotionHandler(eventData) {  
+          var acceleration =eventData.accelerationIncludingGravity;
+                x = acceleration.x;
+                y = acceleration.y;
+                z = acceleration.z;
+                if(Math.abs(x-lastX) > speed || Math.abs(y-lastY) > speed || Math.abs(z-lastZ) > speed) {
+                    //简单的摇一摇触发代码
+                    callback();
+                }
+                lastX = x;
+                lastY = y;
+                lastZ = z;
+        }
     }
 }
 export default utils

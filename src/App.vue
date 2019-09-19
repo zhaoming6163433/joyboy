@@ -16,7 +16,8 @@ export default {
     data() {
         return {
             titlename: {
-                "package":"背包"
+                "package":"背包",
+                "sharkpage":"好友"
             }
         }
     },
@@ -37,7 +38,7 @@ export default {
                 document.title = this.titlename[to.name];
             }
             switch (to.name) {
-                case 'friend':
+                case 'sharkpage':
                 util.vueEvent.$emit("hometabbar", 'friend');
                 break;
                 case 'task':

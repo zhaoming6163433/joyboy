@@ -37,17 +37,17 @@ export default {
           // 这里就可以通过 val 的值变更来确定
           switch (val) {
             case 'friend':
-             
-              break;
+                this.$router.push({"name":"sharkpage"})
+                break;
             case 'task':
               
-              break;
+                break;
             case 'package':
-              this.$router.push({"name":"package"})
-              break;
+                this.$router.push({"name":"package"})
+                break;
             case 'share':
               
-              break;
+                break;
           }
       }
   },
@@ -67,9 +67,16 @@ export default {
 </script>
 
 <style lang="scss">
+ .navtabbar{
   .mint-tabbar.is-fixed{
     border-top:$bord_c;
+    background: $buleback;
+    bottom: 0.5rem;
   }
+  .mint-tabbar > .mint-tab-item.is-selected{
+      background-color:transparent;
+  }
+ }
 </style>
 <style lang="scss" scoped>
   .navtabbar{

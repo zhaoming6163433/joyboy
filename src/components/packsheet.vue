@@ -8,15 +8,17 @@
 <script>
 
 import util from '@/util/util.js'
+import { mapMutations,mapState } from 'vuex'
 export default {
   name: 'packsheet',
   props : [],
   data () {
     return {
         sheetVisible:false,
+        selnum:"",
         sellist:[
-            {name: '使用',method: this.cancelfn,id:1},
-            {name: '丢弃',method: this.cancelfn,id:2},
+            {name: '使用',method: this.usefn},
+            {name: '丢弃',method: this.cancelfn},
         ]
     }
   },
@@ -27,18 +29,33 @@ export default {
     
   },
   computed: {
-      
+    ...mapState([
+        'packagelist',
+    ]),
   },
   methods : {
-    cancelfn(item){
-        this.sheetVisible = false;
-        console.log(item)
+    ...mapMutations({
+        SAVE_PACAKGE_INFO:"SAVE_PACAKGE_INFO",
+        SAVE_PACKAGE_LIST:"SAVE_PACKAGE_LIST"
+    }),
+    usefn(){
+        this.SAVE_PACAKGE_INFO(this.selnum);
+        this.$router.push({"name":"homechild"});
     },
+    cancelfn(){
+        this.packagelist.forEach((item,index) => {
+            if (item.id == this.selnum) {
+                this.packagelist.splice(index, 1)
+            }
+        });
+        this.SAVE_PACKAGE_LIST(this.packagelist);
+    }
   },
   mounted(){
         util.vueEvent.$off("sheetVisible");
-        util.vueEvent.$on("sheetVisible", (flag)=>{
-            this.sheetVisible = flag;
+        util.vueEvent.$on("sheetVisible", (item)=>{
+            this.sheetVisible = item.flag;
+            this.selnum = item.selnum;
         });
   }
 }

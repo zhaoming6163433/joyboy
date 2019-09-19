@@ -4,16 +4,20 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 const state = {
-    createproinfo:{}
+    pacakgeinfo:{},
+    packagelist:[{id:1},{id:2}]
 }
 const mutations = {
-    SAVE_CREATE_PRO_INFO(state,obj){
-        state.createproinfo = obj;
+    SAVE_PACAKGE_INFO(state,obj){
+        state.pacakgeinfo = obj;
+    },
+    SAVE_PACKAGE_LIST(state,obj){
+        state.packagelist = obj;
     }
 }
 const getters = {
-    getCreateProInfo(state){
-        return state.createproinfo
+    getPacakgeInfo(state){
+        return state.pacakgeinfo
     }
 }
 const actions = {

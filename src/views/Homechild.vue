@@ -2,8 +2,10 @@
     <div class="homechild">
         <div class="talkdog">HI，我是你的专属汪星人</div>
         <div class="mydog">
-            <img class="imghead" :src="joy_head" :class="`animated ${swing}`">
-            <img class="imgfoot" :src="joy_foot" >
+            <img class="imghead" :src="joy_head" :class="`animated ${swing} ${imghead}`">
+            <img class="imgfoot" :src="joy_foot">
+            <img class="imgfootclick" :src="joy_angry" v-show="joy_angry_show">
+            <div class="dogfoot" @touchstart.stop.prevent="touchstartfoot"></div>
             <div class="doghead" @touchstart.stop.prevent="touchstarthead"></div>
             <div class="oval"></div>
         </div>
@@ -24,7 +26,11 @@
 
 import joy_head from '@assets/images/joy-head.png'
 import joy_foot from '@assets/images/joy-foot.png'
+import joy_cook_head from '@assets/images/joy_cook_head.png'
+import joy_cook_foot from '@assets/images/joy_cook_foot.png'
+import joy_angry from '@assets/images/joy-angry.gif'
 import { setTimeout } from 'timers';
+import { mapMutations,mapState } from 'vuex'
 
 export default {
     name: 'homechild',
@@ -32,9 +38,17 @@ export default {
     data() {
         return {
             joy_head: joy_head,
+            swing:"",
+            imghead:"",
             joy_foot: joy_foot,
-            swing:""
+            joy_angry: joy_angry,
+            joy_angry_show:false,
         }
+    },
+    watch:{
+        pacakgeinfo(val){
+            this.showcookdog(val);
+        },
     },
     components: {
 
@@ -43,17 +57,33 @@ export default {
 
     },
     computed: {
-
+        ...mapState([
+            'pacakgeinfo',
+        ]),
     },
     methods: {
+        showcookdog(val){
+            if(val === 2){
+                this.joy_head = joy_cook_head;
+                this.joy_foot = joy_cook_foot;
+                this.imghead = "cookiedog"
+            }
+        },
         touchstarthead(event) {
             this.swing = "swing";
             setTimeout(()=>{
                 this.swing = "";
             },1000);
         },
+        touchstartfoot(){
+            this.joy_angry_show = true;
+            setTimeout(()=>{
+                this.joy_angry_show = false;
+            },1000)
+        }
     },
     mounted() {
+        this.showcookdog(this.pacakgeinfo);
     }
 }
 
@@ -81,9 +111,10 @@ export default {
         box-sizing: border-box;
         border-radius: 50%;
         position: relative;
-        left: 4rem;
+        left: 5rem;
         top: 1rem;
         margin: 0 auto;
+        margin-top:3rem;
     }
     .talkdog:before {
         content: "";
@@ -108,9 +139,17 @@ export default {
             z-index: 1;
             position: absolute;
         }
+        .cookiedog{
+            top:-1rem;
+        }
         .imgfoot {
             z-index: 1;
             top: 7.7rem;
+            position: absolute;
+        }
+        .imgfootclick{
+            z-index: 1;
+            top: -4.8rem;
             position: absolute;
         }
         .oval {
@@ -127,6 +166,14 @@ export default {
             height: 6rem;
             top: 2rem;
             left: 1rem;
+            position: absolute;
+            z-index: 1;
+        }
+        .dogfoot{
+            width: 8rem;
+            height: 4.1rem;
+            top: 8rem;
+            left: 3rem;
             position: absolute;
             z-index: 1;
         }

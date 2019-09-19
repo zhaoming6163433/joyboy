@@ -1,11 +1,5 @@
 <template>
     <div class="dogtext" v-show="showdogtext">
-        <div class="textimg">
-            <img :src="dogtextimg" />
-            <div class="textdivout">
-                <div class="textdiv" v-for="(item,index) in list" :key="index" :style="{ width: item + '%' }"></div>
-            </div>
-        </div>
         <div class="textstyle">
             <div>
             </div>
@@ -16,7 +10,12 @@
                 <li>正在生成您的个性化萌宠...</li>
                 <li>100% 完成！</li>
             </ul>
-            
+        </div>
+        <div class="textimg">
+            <img :src="dogtextimg" />
+            <div class="textdivout">
+                <div class="textdiv" v-for="(item,index) in list" :key="index" :style="{ width: item + '%' }"></div>
+            </div>
         </div>
     </div>
 </template>
@@ -72,7 +71,9 @@ export default {
         util.vueEvent.$off("showdogtext")
         util.vueEvent.$on("showdogtext", (flag)=>{
             this.showdogtext = flag;
-            this.startimg();
+            setTimeout(()=>{
+                this.startimg();
+            },3000);
         });
     }
 }
@@ -83,16 +84,17 @@ export default {
 <style>
     @keyframes textstyleh
     {
-        0%   {height: 7rem;}
-        20%  {height: 6rem;}
-        40%  {height: 5rem;}
-        60%  {height: 4rem;}
-        80%  {height: 3rem;}
+        0%   {height: 5rem;}
+        20%  {height: 4rem;}
+        40%  {height: 3rem;}
+        60%  {height: 2rem;}
+        80%  {height: 1rem;}
         100% {height: 0rem;}
     }
 
     .dogtext>.textstyle >div{
-        animation: textstyleh 6s;
+        background:#000;
+        animation: textstyleh 3s;
     }
 </style>
 <style lang="scss" scoped>
@@ -103,21 +105,20 @@ export default {
     right: 0;
     bottom: 0;
     z-index: 1;
-    background-color: $buleback;
+    background-color: #000000;
     text-align:center;
     .textimg{
-        width:16rem;
-        margin:0 auto;
-        margin-top: 2rem;
+        position: relative;
+        width: 95%;
+        margin: 0 auto;
         height: 15.8rem;
         .textdivout{
-            border: 1px solid $bordercolor;
             position:absolute;
-            width: 16rem;
-            top: 2rem;
+            width: 100%;
+            top: 0;
             .textdiv{
-                background:$buleback;
-                height: 0.58rem;
+                background:#000;
+                height: 2.15vw;
                 float: right;
                 clear: both;
                 width:100%;
@@ -128,22 +129,19 @@ export default {
     .textstyle{
         position: relative;
         width: 14rem;
-        border-radius: 10px;
-        background-color: $buleback;
-        padding: 1rem;
-        color:#fff;
-        border:1px solid $bordercolor;
-        margin: 0 auto;
-        color:$text_c;
-        margin-top:1rem;
-        font-size:1rem;
+        background-color: #000000;
+        padding: 2%;
+        color: #fff;
+        color: #02c502;
+        margin-top: 1rem;
+        font-size: 0.7rem;
+        text-align: left;
         >div{
             position: absolute;
             left: 0;
             width: 100%;
             height: 0rem;
             bottom:0;
-            background-color: $buleback;
         }
     }
 }

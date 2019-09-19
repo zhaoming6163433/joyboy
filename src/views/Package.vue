@@ -2,26 +2,31 @@
     <div class="package">
         <backhome></backhome>
         <div class="list">
-            <div class="zhuangban" @click="showsheet"><img :src="clothes"/></div>
-            <div class="zhuangban" @click="showsheet"><img :src="cookie"/></div>
+            <div class="zhuangban" @click="showsheet(item.id)" v-for="(item,index) in packagelist" :key="index">
+                <img src="@assets/images/clothes.png" v-show="item.id==1"/>
+                <img src="@assets/images/cookie.png" v-show="item.id==2"/>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
 
-import cookie from '@assets/images/cookie.png'
-import clothes from '@assets/images/clothes.png'
 import backhome from 'components/backhome'
 import util from '@/util/util.js'
+import { mapMutations,mapState } from 'vuex'
 export default {
     name: 'package',
     props: [],
     data() {
         return {
-            cookie:cookie,
-            clothes:clothes
+            
         }
+    },
+    watch:{
+        packagelist(val){
+            console.log(val);
+        },
     },
     components: {
         backhome
@@ -30,15 +35,16 @@ export default {
 
     },
     computed: {
-
+        ...mapState([
+            'packagelist'
+        ])
     },
     methods: {
-        showsheet(){
-            util.vueEvent.$emit("sheetVisible",true);
+        showsheet(val){
+            util.vueEvent.$emit("sheetVisible",{selnum:val,flag:true});
         }
     },
     mounted() {
-
     }
 }
 
@@ -47,20 +53,21 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 .package {
+    margin: 1rem auto;
     background: url("../assets/images/cell.png");
     background-size: 100%;
     background-repeat: repeat-y;
+    width: 16.75rem;
+    box-sizing: border-box;
+    bottom: 4.5rem;
     .list{
+        margin-left: 0.6rem;
         .zhuangban{
-            width: 6.25rem;
-            height: 5.75rem;
+            width: 3rem;
             box-sizing: border-box;
-            padding-top: 0.7rem;
+            margin: 0.4rem 0.45rem;
             text-align: center;
             display: inline-block;
-            img{
-                width:60%;
-            }
         }
     }
 }
