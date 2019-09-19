@@ -1,13 +1,14 @@
 <template>
     <div class="homechild">
-        <div class="talkdog">HI，我是你的专属汪星人</div>
+        <div :class="`talkdog ${talkdogflag}`" v-show="talkdogshow">HI，我是你的专属汪星人</div>
         <div class="mydog">
-            <img class="imghead" :src="joy_head" :class="`animated ${swing} ${imghead}`">
-            <img class="imgfoot" :src="joy_foot">
+            <img class="imghead" v-show="!bianshen" :src="joy_head" :class="`animated ${swing} ${imghead}`">
+            <img class="imgfoot" v-show="!bianshen" :src="joy_foot">
             <img class="imgfootclick" :src="joy_angry" v-show="joy_angry_show">
-            <div class="dogfoot" @touchstart.stop.prevent="touchstartfoot"></div>
-            <div class="doghead" @touchstart.stop.prevent="touchstarthead"></div>
-            <div class="oval"></div>
+            <img class="bianshen" v-show="bianshen" src="@assets/images/joy-turnaround.gif"/>
+            <div class="dogfoot" v-show="!bianshen" @touchstart.stop.prevent="touchstartfoot"></div>
+            <div class="doghead" v-show="!bianshen" @touchstart.stop.prevent="touchstarthead"></div>
+            <div class="oval"><img src="@assets/images/joy-back.png"/></div>
         </div>
         <div class="dogname">专属萌宠</div>
         <div class="mydogprogress">
@@ -43,6 +44,9 @@ export default {
             joy_foot: joy_foot,
             joy_angry: joy_angry,
             joy_angry_show:false,
+            talkdogshow:true,
+            bianshen:false,
+            talkdogflag:""
         }
     },
     watch:{
@@ -58,16 +62,29 @@ export default {
     },
     computed: {
         ...mapState([
-            'pacakgeinfo',
+            'pacakgeinfo',//存放背包里面的某个类型
         ]),
     },
     methods: {
         showcookdog(val){
             if(val === 2){
-                this.joy_head = joy_cook_head;
-                this.joy_foot = joy_cook_foot;
-                this.imghead = "cookiedog"
+                this.bianshen = true;
+                setTimeout(()=>{
+                    this.bianshen = false;
+                    this.joy_head = joy_cook_head;
+                    this.joy_foot = joy_cook_foot;
+                    this.imghead = "cookiedog"
+                },1000);
+
             }
+        },
+        showtalk(){
+            setTimeout(()=>{
+                this.talkdogflag = "talkdogflag";
+            },5000);
+            setTimeout(()=>{
+                this.talkdogshow = false;
+            },5180);
         },
         touchstarthead(event) {
             this.swing = "swing";
@@ -84,6 +101,7 @@ export default {
     },
     mounted() {
         this.showcookdog(this.pacakgeinfo);
+        this.showtalk();
     }
 }
 
@@ -100,6 +118,18 @@ export default {
 </style>
 <style lang="scss" scoped>
 .homechild {
+    @keyframes opacitydog{
+        from{
+            opacity: 1;
+        }
+        to{
+            opacity: 0;
+        }
+    }
+    .talkdogflag{
+        animation-duration: 0.2s;
+        animation-name: opacitydog;
+    }
     .talkdog {
         background-color: $talk_blue;
         color: #fff;
@@ -111,10 +141,11 @@ export default {
         box-sizing: border-box;
         border-radius: 50%;
         position: relative;
-        left: 5rem;
+        left: 50%;
         top: 1rem;
         margin: 0 auto;
         margin-top:3rem;
+        position: absolute;
     }
     .talkdog:before {
         content: "";
@@ -128,13 +159,14 @@ export default {
         border-left: 0.1rem solid transparent;
         border-top: 1.5rem solid $talk_blue;
         margin-top: 3.5rem;
-        margin-left: 0.5rem;
+        margin-left: 2rem;
     }
     .mydog {
         width: 14rem;
         height: 14rem;
         position: relative;
         margin: 0 auto;
+        margin-top:8rem;
         .imghead {
             z-index: 1;
             position: absolute;
@@ -153,10 +185,9 @@ export default {
             position: absolute;
         }
         .oval {
-            bottom: 1rem;
+            bottom: 6.5rem;
             left: 0rem;
             position: absolute;
-            background-color: #2f5597;
             height: 1.5rem;
             width: 14rem;
             border-radius: 100%;
@@ -176,6 +207,11 @@ export default {
             left: 3rem;
             position: absolute;
             z-index: 1;
+        }
+        .bianshen{
+            z-index: 2;
+            position: absolute;
+            top: -1.2rem;
         }
     }
     .dogname {

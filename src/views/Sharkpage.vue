@@ -1,8 +1,13 @@
 <template>
     <div class="sharkpage" @click="sharkfn">
         <backhome></backhome>
-        <div class="sharktext">摇一摇！与同时摇晃手机的Joy萌友合影</div>
-        <div :class="`sharkimg animated ${swing}`"><img src="@assets/images/shark.png"/></div>
+        <section v-show="sharkshow">
+            <div class="sharktext">摇一摇！与同时摇晃手机的Joy萌友合影</div>
+            <div :class="`sharkimg ${swing}`"><img src="@assets/images/shark.png"/></div>
+        </section>
+        <section v-show="!sharkshow" class="resultimg">
+            <img :src="resultimg"/>
+        </section>
     </div>
 </template>
 
@@ -10,6 +15,8 @@
 
 import util from '@/util/util.js'
 import backhome from 'components/backhome'
+import cheer from '@assets/images/photos-cheers.gif'
+import photoshide from '@assets/images/photos-hide.gif'
 import { mapMutations,mapState } from 'vuex'
 import { setTimeout } from 'timers';
 export default {
@@ -18,7 +25,10 @@ export default {
     data() {
         return {
             swing:"",
-            sharkflag:true
+            resultimg:"",
+            sharkshow:true,//展示摇一摇图片
+            sharkflag:true,//防止摇一摇未结束继续摇晃
+            randoming:[cheer,photoshide]
         }
     },
     watch:{
@@ -32,17 +42,28 @@ export default {
     },
     computed: {
         ...mapState([
-           
+           'sharkimglist'
         ])
     },
     methods: {
+        ...mapMutations({
+            SHARK_IMG_LIST:"SHARK_IMG_LIST"
+        }),
        sharkfn(){
            if(this.sharkflag){
                this.sharkflag = false;
                this.swing = "swing";
                setTimeout(()=> {
                    this.swing = "";
+                   if(this.sharkimglist[0]!=undefined){
+                       this.resultimg = this.randoming[this.sharkimglist[0]];
+                       this.sharkimglist.splice(0,1)
+                       this.SHARK_IMG_LIST(this.sharkimglist);
+                   }else{
+                       this.resultimg = this.randoming[Math.floor(Math.random() * (2 - 0) + 0)];
+                   }
                    this.sharkflag = true;
+                   this.sharkshow = false;
                },2000);
            }
        }
@@ -58,9 +79,12 @@ export default {
 <style lang="scss">
 .sharkpage {
     .swing {
+        animation-name: myswing;
         transform-origin: center center;
+        animation-duration: 1s;
+        animation-fill-mode: both;
     }
-    @keyframes swing
+    @keyframes myswing
     {
         20%  {transform: rotate(50deg);}
         40%  {transform: rotate(-40deg);}
@@ -91,6 +115,13 @@ export default {
         width:15rem;
         margin:0 auto;
         margin-top:8rem;
+    }
+    .resultimg{
+        text-align:center;
+        margin-top:6rem;
+        img{
+            width:80%;
+        }
     }
 }
 </style>
