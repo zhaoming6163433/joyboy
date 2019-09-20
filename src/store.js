@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 const state = {
     pacakgeinfo:{},
-    packagelist:[{id:1},{id:2}],
+    packagelist:[{id:2}],
     sharkimglist:[0,1]
 }
 const mutations = {

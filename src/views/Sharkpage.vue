@@ -1,7 +1,7 @@
 <template>
-    <div class="sharkpage" @click="sharkfn">
+    <div class="sharkpage">
         <backhome></backhome>
-        <section v-show="sharkshow">
+        <section v-show="sharkshow"  @click="sharkfn">
             <div class="sharktext">摇一摇！与同时摇晃手机的Joy萌友合影</div>
             <div :class="`sharkimg ${swing}`"><img src="@assets/images/shark.png"/></div>
         </section>
@@ -39,6 +39,9 @@ export default {
     },
     created() {
 
+    },
+    activated(){
+        Object.assign(this.$data, this.$options.data());
     },
     computed: {
         ...mapState([

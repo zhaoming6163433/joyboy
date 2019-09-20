@@ -1,7 +1,7 @@
 <template>
     <div class="startpage" v-show="showstartpage">
         <div class="textstyle">收到一份神秘包裹，是什么呢？快打开看看吧！</div>
-        <div :class="`imgstyle animated ${tada}`" @click="clbox" :style="{ width: boxwidth + 'rem',top:boxtop + 'rem' }"><img :src="box_img"/></div>
+        <div v-show="boxshow" :class="`imgstyle animated ${tada}`" @click="clbox" :style="{ width: boxwidth + 'rem',top:boxtop + 'rem' }"><img :src="box_img"/></div>
     </div>
 </template>
 
@@ -9,18 +9,19 @@
 
 import util from '@/util/util.js'
 import box_still from '@assets/images/box_still.png'
-import box_open from '@assets/images/box_open.png'
+import box_open from '@assets/images/box_open.gif'
 import { setTimeout } from 'timers';
 export default {
     name: 'startpage',
     props: [],
     data() {
         return {
+            boxshow:true,
             box_img: box_still,
             tada:"",
             boxwidth:14,
             boxtop:0,
-            showstartpage:false
+            showstartpage:true
         }
     },
     components: {
@@ -36,17 +37,19 @@ export default {
         clbox(){
             this.tada = "tada";
             setTimeout(()=>{
+                this.boxshow = false;
+                this.box_img = box_open;
                 this.boxwidth = 19;
                 this.boxtop = -3;
-                this.$nextTick(()=>{
-                    this.box_img = box_open;
-                });
-                
+                this.tada = "";
+                setTimeout(()=>{
+                    this.boxshow = true;
+                },10);
             },1000);
             setTimeout(()=>{
                 this.showstartpage = false;
                 util.vueEvent.$emit("showdogtext", true);
-            },2000);
+            },2010); 
         }
     },
     mounted() {

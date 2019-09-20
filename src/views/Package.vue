@@ -59,7 +59,8 @@ export default {
     background-repeat: repeat-y;
     width: 16.75rem;
     box-sizing: border-box;
-    bottom: 4.5rem;
+    bottom: 3.5rem;
+    margin-top: 2rem;
     .list{
         margin-left: 0.6rem;
         .zhuangban{

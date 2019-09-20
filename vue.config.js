@@ -14,7 +14,7 @@ module.exports = {
     // 静态资源存放
     assetsDir: "static",
     // 生产环境是否生成 sourceMap 文件
-    productionSourceMap: true,
+    productionSourceMap: false,
     // 是否为 Babel 或 TypeScript 使用 thread-loader 该选项在系统的 CPU 有多于一个内核时自动启用，仅作用于生产构建
     parallel: require('os').cpus().length > 1,
     // 启动端口

@@ -63,6 +63,7 @@ export default {
             }else{
                 setTimeout(()=>{
                     this.showdogtext = false;
+                     util.vueEvent.$emit('firstanimate');
                 },1000)
             }
        }

@@ -16,8 +16,7 @@ export default {
     data() {
         return {
             titlename: {
-                "package":"背包",
-                "sharkpage":"好友"
+                
             }
         }
     },
@@ -66,11 +65,7 @@ export default {
             }
             let _arr = name.split('/');
             name = _arr[_arr.length - 1];
-            if (name) {
-                document.title = this.titlename[name]
-            }else{
-                document.title = "虚拟萌宠";
-            }
+            document.title = "inJOY ZONE";
             if(to){
                 this.hometab(to);
             }else{

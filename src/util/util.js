@@ -520,28 +520,47 @@ const utils = {
     },
     //摇一摇重力感应
     sharkgravity:function(callback){
-        if (window.DeviceMotionEvent) { 
-             window.addEventListener('devicemotion',deviceMotionHandler, false);  
-        } 
-        var speed = 30;//speed
-        let x = 0; 
-        let y = 0;
-        let z = 0;
-        let lastX = 0;
-        let lastY = 0;
-        let lastZ = 0;
-        function deviceMotionHandler(eventData) {  
-          var acceleration =eventData.accelerationIncludingGravity;
-                x = acceleration.x;
-                y = acceleration.y;
-                z = acceleration.z;
-                if(Math.abs(x-lastX) > speed || Math.abs(y-lastY) > speed || Math.abs(z-lastZ) > speed) {
-                    //简单的摇一摇触发代码
+        if (window.DeviceMotionEvent) {
+            /**
+             * speed：速度，根据摇一摇的动作幅度可以适当增加或减小
+             * cx、cy、cz：分别是当前在 x,y,z 3个方向上的加速度
+             * lastX、lastY、lastZ：分别是上一次在 x,y,z 3个方向上的加速度
+             */
+            var speed = 20;
+            var cx = 0;
+            var cy = 0;
+            var cz = 0;
+            var lastX = 0;
+            var lastY = 0;
+            var lastZ = 0;
+ 
+            /**注册devicemotion(设备运动)事件
+             * Window.prototype.addEventListener = function(type,listener,useCapture)
+             * type：事件类型，如 devicemotion、deviceorientation、compassneedscalibration 等
+             * listener：事件触发的回调函数，也可以提取出来单独写
+             * useCapture：是否捕获
+             * */
+            window.addEventListener('devicemotion', function (evenData) {
+                /**获取重力加速度
+                 * x、y、z 三个属性，分别表示 3 个方向上的重力加速度
+                 * */
+                var acceleration = evenData.accelerationIncludingGravity;
+                cx = acceleration.x;
+                cy = acceleration.y;
+                cz = acceleration.z;
+ 
+                /**只要手机有稍微的抖动，就会进入此回调函数
+                 * 当某一个方向上的加速度超过 speed 的值时，改变背景色
+                 */
+                if (Math.abs(cx - lastX) > speed || Math.abs(cy - lastY) > speed || Math.abs(cz - lastZ) > speed) {
                     callback();
                 }
-                lastX = x;
-                lastY = y;
-                lastZ = z;
+                lastX = cx;
+                lastY = cy;
+                lastZ = cz;
+            }, false);
+        } else {
+            alert('您的浏览器不支持摇一摇功能.');
         }
     }
 }

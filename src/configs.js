@@ -9,6 +9,7 @@ const toastime = 3000;
 const timeout = 60000;
 let urlWebHttp = '';
 let loginurl = '';
+let plant = "";
 let pagename = {
     logoname:"标题名称"
 }
@@ -26,5 +27,6 @@ export default{
 	toastime,
     timeout,
     loginurl,
-    pagename
+    pagename,
+    plant
 }

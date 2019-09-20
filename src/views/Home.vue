@@ -1,6 +1,8 @@
 <template>
   <div class="home">
-        <router-view class="child-view content"></router-view>
+        <keep-alive>
+            <router-view class="child-view content"></router-view>
+        </keep-alive>
         <navtabbar></navtabbar>
         <packsheet></packsheet>
         <startpage></startpage>

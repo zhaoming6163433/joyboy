@@ -1,16 +1,16 @@
 <template>
     <div class="homechild">
-        <div :class="`talkdog ${talkdogflag}`" v-show="talkdogshow">HI，我是你的专属汪星人</div>
+        <div :class="`talkdog ${talkdogflag}`" v-show="talkdogshow">{{tiptext}}</div>
         <div class="mydog">
-            <img class="imghead" v-show="!bianshen" :src="joy_head" :class="`animated ${swing} ${imghead}`">
-            <img class="imgfoot" v-show="!bianshen" :src="joy_foot">
-            <img class="imgfootclick" :src="joy_angry" v-show="joy_angry_show">
+            <img class="imghead" v-show="!bianshen&&sharkhead" :src="joy_head" :class="`animated ${swing} ${imghead}`">
+            <img class="imgfootclick" src="@assets/images/joy-angry.gif" v-show="joy_angry_show">
+            <img class="imgfootclick1" src="@assets/images/joy-happy.gif" v-show="joy_happy_show">
             <img class="bianshen" v-show="bianshen" src="@assets/images/joy-turnaround.gif"/>
             <div class="dogfoot" v-show="!bianshen" @touchstart.stop.prevent="touchstartfoot"></div>
             <div class="doghead" v-show="!bianshen" @touchstart.stop.prevent="touchstarthead"></div>
             <div class="oval"><img src="@assets/images/joy-back.png"/></div>
         </div>
-        <div class="dogname">专属萌宠</div>
+        <div class="dogname">JOY</div>
         <div class="mydogprogress">
             <ul>
                 <li><span>毅力值</span><mt-progress class="progressdog" :value="60" :bar-height="10"></mt-progress></li>
@@ -25,11 +25,10 @@
 
 <script>
 
-import joy_head from '@assets/images/joy-head.png'
-import joy_foot from '@assets/images/joy-foot.png'
+import joy_head from '@assets/images/joy_still_new.png'
 import joy_cook_head from '@assets/images/joy_cook_head.png'
 import joy_cook_foot from '@assets/images/joy_cook_foot.png'
-import joy_angry from '@assets/images/joy-angry.gif'
+import util from '@/util/util.js'
 import { setTimeout } from 'timers';
 import { mapMutations,mapState } from 'vuex'
 
@@ -41,12 +40,15 @@ export default {
             joy_head: joy_head,
             swing:"",
             imghead:"",
-            joy_foot: joy_foot,
-            joy_angry: joy_angry,
+            sharkhead:true,
             joy_angry_show:false,
+            joy_happy_show:false,
             talkdogshow:true,
             bianshen:false,
-            talkdogflag:""
+            talkdogflag:"",
+            textarr:["HI，我是你的专属萌宠","汪~~~","嗷呜！！","想要来点黑暗料理吗"],
+            initext:"HI，我是你的专属萌宠",
+            tiptext:"HI，我是你的专属萌宠"
         }
     },
     watch:{
@@ -69,6 +71,8 @@ export default {
         showcookdog(val){
             if(val === 2){
                 this.bianshen = true;
+                this.initext = this.textarr[3];
+                this.tiptext = this.textarr[3];
                 setTimeout(()=>{
                     this.bianshen = false;
                     this.joy_head = joy_cook_head;
@@ -87,21 +91,35 @@ export default {
             },5180);
         },
         touchstarthead(event) {
-            this.swing = "swing";
+            this.joy_happy_show = true;
+            this.sharkhead = false;
+            this.tiptext = this.textarr[1];
             setTimeout(()=>{
-                this.swing = "";
+                this.joy_happy_show = false;
+                this.tiptext = this.initext;
+                this.sharkhead = true;
             },1000);
         },
         touchstartfoot(){
+            this.tiptext = this.textarr[2];
             this.joy_angry_show = true;
             setTimeout(()=>{
+                this.tiptext = this.initext;
                 this.joy_angry_show = false;
             },1000)
         }
     },
     mounted() {
         this.showcookdog(this.pacakgeinfo);
-        this.showtalk();
+        //初始化动画
+        util.vueEvent.$off('firstanimate');
+        util.vueEvent.$on("firstanimate",()=>{
+            //this.showtalk();
+            this.bianshen = true;
+            setTimeout(()=>{
+                this.bianshen = false;
+            },1000)
+        })
     }
 }
 
@@ -113,6 +131,9 @@ export default {
         .swing {
             -webkit-transform-origin: bottom center;
             transform-origin: bottom center;
+        }
+        .mt-progress, .mt-progress>*{
+            display: block;
         }
     }
 </style>
@@ -169,6 +190,7 @@ export default {
         margin-top:8rem;
         .imghead {
             z-index: 1;
+            top:1.85rem;
             position: absolute;
         }
         .cookiedog{
@@ -182,6 +204,11 @@ export default {
         .imgfootclick{
             z-index: 1;
             top: -4.8rem;
+            position: absolute;
+        }
+        .imgfootclick1{
+            z-index: 1;
+            top: 1.84rem;
             position: absolute;
         }
         .oval {

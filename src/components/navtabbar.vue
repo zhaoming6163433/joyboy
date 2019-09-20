@@ -81,10 +81,10 @@ export default {
 <style lang="scss" scoped>
   .navtabbar{
     .barimg{
-      width: 24px;
-      height: 24px;
+      width: 35px;
+      height: 35px;
       margin: 0 auto;
-      padding-bottom: 5px;
+      padding-bottom: 8px;
       background-repeat: no-repeat;
     }
     .home{
