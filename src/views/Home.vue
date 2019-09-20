@@ -3,6 +3,7 @@
         <keep-alive>
             <router-view class="child-view content"></router-view>
         </keep-alive>
+        <preloadimg></preloadimg>
         <navtabbar></navtabbar>
         <packsheet></packsheet>
         <startpage></startpage>
@@ -16,13 +17,15 @@ import navtabbar from 'components/navtabbar'
 import packsheet from 'components/packsheet'
 import startpage from 'components/startpage'
 import dogtext from 'components/dogtext'
+import preloadimg from 'components/preloadimg'
 export default {
     name: 'home',
     components: {
         navtabbar,
         packsheet,
         startpage,
-        dogtext
+        dogtext,
+        preloadimg
     },
     methods: {
         
