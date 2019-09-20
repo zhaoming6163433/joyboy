@@ -40,7 +40,11 @@ export default {
     }),
     usefn(){
         this.SAVE_PACAKGE_INFO(this.selnum);
-        this.$router.push({"name":"homechild"});
+        if(this.selnum==3){
+            window.location.href = "https://pro.m.jd.com/mall/active/4G5xap7fUEzJkqP4ZqmpEc7xtV7v/index.html";
+        }else{
+            this.$router.push({"name":"homechild"});
+        }
     },
     cancelfn(){
         this.packagelist.forEach((item,index) => {

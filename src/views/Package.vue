@@ -5,6 +5,7 @@
             <div class="zhuangban" @click="showsheet(item.id)" v-for="(item,index) in packagelist" :key="index">
                 <img src="@assets/images/clothes.png" v-show="item.id==1"/>
                 <img src="@assets/images/cookie.png" v-show="item.id==2"/>
+                <img src="@assets/images/activehref.png" v-show="item.id==3"/>
             </div>
         </div>
     </div>
@@ -45,6 +46,7 @@ export default {
         }
     },
     mounted() {
+        console.log(this.packagelist)
     }
 }
 

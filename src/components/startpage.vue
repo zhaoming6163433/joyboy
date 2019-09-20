@@ -53,7 +53,9 @@ export default {
         }
     },
     mounted() {
-
+        if(window.location.href.indexOf("package")!=-1){
+            this.showstartpage = false;
+        }
     }
 }
 
