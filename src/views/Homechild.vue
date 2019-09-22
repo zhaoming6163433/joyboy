@@ -15,9 +15,9 @@
             <ul>
                 <li><span>毅力值</span><mt-progress class="progressdog" :value="60" :bar-height="10"></mt-progress></li>
                 <li><span>耐力值</span><mt-progress class="progressdog" :value="55" :bar-height="10"></mt-progress></li>
-                <li><span>潜力值</span><mt-progress class="progressdog" :value="50" :bar-height="10"></mt-progress></li>
-                <li><span>活力值</span><mt-progress class="progressdog" :value="30" :bar-height="10"></mt-progress></li>
-                <li><span>魅力值</span><mt-progress class="progressdog" :value="65" :bar-height="10"></mt-progress></li>
+                <li><span>潜力值</span><mt-progress class="progressdog" :value="30" :bar-height="10"></mt-progress></li>
+                <li><span>活力值</span><mt-progress class="progressdog" :value="65" :bar-height="10"></mt-progress></li>
+                <li><span>魅力值</span><mt-progress class="progressdog" :value="50" :bar-height="10"></mt-progress></li>
             </ul>
         </div>
     </div>

@@ -4,6 +4,7 @@ const Home = r => require.ensure([], () => r(require('@/views/Home')), 'chunknam
 const Homechild = r => require.ensure([], () => r(require('@/views/Homechild')), 'chunkname2')
 const Package = r => require.ensure([], () => r(require('@/views/Package')), 'chunkname3')
 const Sharkpage = r => require.ensure([], () => r(require('@/views/Sharkpage')), 'chunkname4')
+const Task = r => require.ensure([], () => r(require('@/views/Task')), 'chunkname5')
 
 Vue.use(Router)
 
@@ -29,6 +30,11 @@ export default new Router({
                 path: '/sharkpage',
                 name: 'sharkpage',
                 component: Sharkpage
+            },
+            {//任务
+                path: '/task',
+                name: 'task',
+                component: Task
             }
         ]
     }]

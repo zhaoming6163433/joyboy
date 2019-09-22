@@ -53,7 +53,7 @@ export default {
         }
     },
     mounted() {
-        if(window.location.href.indexOf("package")!=-1){
+        if(window.location.href.indexOf("package")!=-1||window.location.href.indexOf("task")!=-1){
             this.showstartpage = false;
         }
     }

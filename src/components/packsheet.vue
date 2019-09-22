@@ -43,6 +43,7 @@ export default {
         if(this.selnum==3){
             window.location.href = "https://pro.m.jd.com/mall/active/4G5xap7fUEzJkqP4ZqmpEc7xtV7v/index.html";
         }else{
+            this.cancelfn()
             this.$router.push({"name":"homechild"});
         }
     },
