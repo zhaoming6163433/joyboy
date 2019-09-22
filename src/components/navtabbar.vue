@@ -60,13 +60,22 @@ export default {
       share(){
           JrBridge.callNative({
             "type":"4",
+            "shareDate":{
+                "appId":"",
+                "img":"https://pre-imlab-midas.jd.com/joyboy/static/img/joy_still_new.dcfc6d32.png",
+                "link":"https://pre-imlab-midas.jd.com/joyboy",
+                "desc":"inJOY ZONE",
+                "title":"救命我变成狗了",
+                "friendesc":"inJOY ZONE",
+                "type":""
+            },
             "shareDataNew":{
                 "isLogin":"0",
                 "id":"5",
                 "linkSubtitle":"救命我变成狗了",
-                "imageUrl":"http://pre-imlab-midas.jd.com/joyboy/static/img/joy_still_new.dcfc6d32.png",
+                "imageUrl":"https://pre-imlab-midas.jd.com/joyboy/static/img/joy_still_new.dcfc6d32.png",
                 "link":[
-                    "http://pre-imlab-midas.jd.com/joyboy"
+                    "https://pre-imlab-midas.jd.com/joyboy"
                 ],
                 "linkTitle":"inJOY ZONE",
                 "channels":["0","1","4","5"],
