@@ -75,12 +75,14 @@ export default {
                 "linkSubtitle":"救命我变成狗了",
                 "imageUrl":"https://pre-imlab-midas.jd.com/joyboy/static/img/joy_still_new.dcfc6d32.png",
                 "link":[
+                    "https://pre-imlab-midas.jd.com/joyboy",
                     "https://pre-imlab-midas.jd.com/joyboy"
                 ],
                 "linkTitle":"inJOY ZONE",
-                "channels":["0","1","4","5"],
+                "channels":["0","1"],
                 "productName":"jijin_xiangqing",
-                "productId":"100487"
+                "productId":"100487",
+                "channelList":["0","1"]
             }
         },function(res){
             console.log('res from native=>',res);
