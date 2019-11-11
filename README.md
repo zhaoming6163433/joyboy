@@ -1,4 +1,4 @@
-# cfm-assets-through
+# joyboy
 
 ## Project setup
 ```
